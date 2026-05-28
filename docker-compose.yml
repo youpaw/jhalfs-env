@@ -1,0 +1,31 @@
+services:
+  jhalfs:
+    build:
+      context: .
+      args:
+        - USERNAME=build
+      dockerfile: Dockerfile
+    image: jhalfs-env
+    container_name: jhalfs
+
+    stdin_open: true
+    tty: true
+
+    privileged: true
+
+    user: build
+
+    volumes:
+      - .:/host
+      - /dev:/dev
+
+    environment:
+      - JHALFS_DIR=/host/jhalfs
+      - OUTPUT_DIR=/host/output
+      - SRC_ARCHIVE=/host/sources
+      - SCRIPTS_DIR=/host/scripts
+      - BUILD_DIR=/mnt/build_dir
+      - LANG=C.UTF-8
+      - USER=build
+
+    working_dir: /host
